@@ -57,4 +57,63 @@ app.get("/api/react_todo", ((request, response) => {
         })
 }))
 
+// Delete Single Todo
+
+app.delete("/api/react_todo/:id", (request, response) => {
+    const { id } = request.params;
+    console.log(id);
+    TodoModel.findByIdAndDelete(id)
+        .then((res) => {
+            response.json({
+                message: "Todo Deleted Successfully",
+                status: true
+            })
+        })
+        .catch((err) => {
+            response.json({
+                message: `Internal Server Error ${err}`,
+                status: false
+            })
+        })
+})
+
+// Edit Todo
+
+app.put("/api/react_todo", (request, response) => {
+    const body = request.body;
+    const ObjToSend = {
+        todo: body.todo,
+    }
+    TodoModel.findByIdAndUpdate(body.id, ObjToSend)
+        .then((data) => {
+            response.json({
+                message: "Todo Update Sucessfully",
+                data: `updated data ${data}`,
+                status: true
+            })
+        }).catch((err) => {
+            response.json({
+                message: `Internal Server Error ${err}`,
+                status: false
+            })
+        })
+});
+
+// DeleteAll
+
+app.delete("/api/react_todo", (request, response) => {
+    TodoModel.deleteMany()
+        .then((res) => {
+            response.json({
+                message: "Data Deleted Sucessfully",
+                status: true
+            })
+        }).catch((err) => {
+            response.json({
+                message: `Internal Server Error ${err}`,
+                status: true
+            })
+        })
+})
+
 app.listen(port, () => console.log(`Server running on PORT ${port}`))

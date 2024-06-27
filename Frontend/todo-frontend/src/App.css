@@ -106,3 +106,16 @@ input[type="checkbox"] {
     color: black;
     font-weight: bold;
 }
+
+.delete-all-todo-btn {
+    background-color: #ea2a2a;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-all-todo-btn:hover {
+    background-color: #ff0000;
+}
